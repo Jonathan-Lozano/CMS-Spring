@@ -1,68 +1,129 @@
-@extends('layouts.master-page')
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 
-@section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Login</div>
-                <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/login') }}">
-                        {{ csrf_field() }}
+<title>CMS</title>
 
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">E-Mail Address</label>
+<!-- Styles -->
+<link href="#" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+<link href="#" th:href="@{/css/style.css}" rel="stylesheet" />
 
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required autofocus>
+<link rel="stylesheet" href="#" th:href="@{/fonts/glyphicons-halflings-regular.svg}" />
 
-                                @if ($errors->has('email'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
+<link rel="stylesheet" type="text/css" href="#" th:href="@{/slick/slick.css}" />
+<link rel="stylesheet" type="text/css" href="#" th:href="@{/slick/slick-theme.css}" />
+</head>
+<body>
+	<div id="app">
 
-                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label for="password" class="col-md-4 control-label">Password</label>
+		<nav class="navbar navbar-inverse navbar-static-top">
+			<div class="container">
+				<div class="navbar-header">
 
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control" name="password" required>
+					<!-- Collapsed Hamburger -->
+					<button type="button" class="navbar-toggle collapsed"
+						data-toggle="collapse" data-target="#app-navbar-collapse">
+						<span class="sr-only">Toggle Navigation</span> <span
+							class="icon-bar"></span> <span class="icon-bar"></span> <span
+							class="icon-bar"></span>
+					</button>
 
-                                @if ($errors->has('password'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
+					<!-- Branding Image -->
+					<a class="navbar-brand" href="{{ url('/') }}"> CMS </a>
+				</div>
 
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : ''}}> Remember Me
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
+				<div class="collapse navbar-collapse" id="app-navbar-collapse">
+					<!-- Left Side Of Navbar -->
+					<ul class="nav navbar-nav">
+						<li class="active"><a href="#">Inicio</a></li>
+						<li><a href="#">Productos</a></li>
+						<li><a href="#">Contacto</a></li>
+					</ul>
 
-                        <div class="form-group">
-                            <div class="col-md-8 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
-                                    Login
-                                </button>
+					<!-- Right Side Of Navbar -->
+					<ul class="nav navbar-nav navbar-right">
+						<!-- Authentication Links -->
+						<li><a href="{{ url('/login') }}">Entrar</a></li>
+						<li><a href="{{ url('/register') }}">Registrate</a></li>
+						<li><a href=""><span
+								class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></a></li>
+						<li class="dropdown"><a href="#" class="dropdown-toggle"
+							data-toggle="dropdown" role="button" aria-expanded="false">
+								UserName<span class="caret"></span>
+						</a>
 
-                                <a class="btn btn-link" href="{{ url('/password/reset') }}">
-                                    Forgot Your Password?
-                                </a>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-@endsection
+							<ul class="dropdown-menu" role="menu">
+								<li><a href="{{ url('/admin') }}">Administración</a></li>
+								<li><a href="{{ url('/home') }}">Mi cuenta</a></li>
+								<li role="separator" class="divider"></li>
+								<li><a href="#"> Cerrar sesión </a>
+
+									<form id="logout-form" action="{{ url('/logout') }}"
+										method="POST" style="display: none;"></form></li>
+							</ul></li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+
+		<div class="container">
+			<div class="row">
+				<div class="col-md-8 col-md-offset-2">
+					<div class="panel panel-default">
+						<div class="panel-heading">Login</div>
+						<div class="panel-body">
+							<form class="form-horizontal" method="POST" action="#" th:action="@{/logincheck}" th:object="${userCredentials}">
+								<div class="form-group">
+									<label for="email" class="col-md-4 control-label">Nombre de usuario</label>
+									<div class="col-md-6">
+										<input id="inputUsername" type="text" class="form-control" th:field="*{username}" />
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="password" class="col-md-4 control-label">Contraseña</label>
+									<div class="col-md-6">
+										<input id="inputPassword" type="password" class="form-control" th:field="*{password}" />
+									</div>
+								</div>
+								<div class="alert alert-danger" role="alert" th:if="${error != null}">
+									<strong>Nombre de usuario o contraseña invalidos.</strong>
+								</div>
+
+								<div class="form-group">
+									<div class="col-md-6 col-md-offset-4">
+										<div class="checkbox">
+											<label> 
+											<input type="checkbox" name="remember" />
+												No cerrar sesión
+											</label>
+										</div>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<div class="col-md-8 col-md-offset-4">
+										<button type="submit" class="btn btn-primary">Entrar</button>
+
+										<a class="btn btn-link" href="#">
+											¿Olvide mi contraseña? </a>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+	</div>
+
+	<script type="text/javascript" src="/js/jquery.min.js"></script>
+	<script type="text/javascript" src="/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="/slick/slick.min.js"></script>
+</body>
+</html>

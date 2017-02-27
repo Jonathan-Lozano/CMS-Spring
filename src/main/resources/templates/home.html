@@ -1,62 +1,139 @@
-@extends('layouts.master-page')
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 
-@section('content')
+<title>CMS</title>
 
-    <div class="page-header">
-        <h1>Registrar nuevo usuario</h1>
-        <div class="panel-body">
-            <ol class="breadcrumb">
-                <li><a href="#">Inicio</a></li>
-                <li class="active">Registrar</li>
-            </ol>
-        </div>
-    </div>
+<!-- Styles -->
+<link href="#" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+<link href="#" th:href="@{/css/style.css}" rel="stylesheet" />
+
+<link rel="stylesheet" href="#"
+	th:href="@{/fonts/glyphicons-halflings-regular.svg}" />
+
+<link rel="stylesheet" type="text/css" href="#"
+	th:href="@{/slick/slick.css}" />
+<link rel="stylesheet" type="text/css" href="#"
+	th:href="@{/slick/slick-theme.css}" />
+</head>
+<body>
+	<div id="app">
+
+		<nav class="navbar navbar-inverse navbar-static-top">
+			<div class="container">
+				<div class="navbar-header">
+
+					<!-- Collapsed Hamburger -->
+					<button type="button" class="navbar-toggle collapsed"
+						data-toggle="collapse" data-target="#app-navbar-collapse">
+						<span class="sr-only">Toggle Navigation</span> <span
+							class="icon-bar"></span> <span class="icon-bar"></span> <span
+							class="icon-bar"></span>
+					</button>
+
+					<!-- Branding Image -->
+					<a class="navbar-brand" href="{{ url('/') }}"> CMS </a>
+				</div>
+
+				<div class="collapse navbar-collapse" id="app-navbar-collapse">
+					<!-- Left Side Of Navbar -->
+					<ul class="nav navbar-nav">
+						<li class="active"><a href="#">Inicio</a></li>
+						<li><a href="#">Productos</a></li>
+						<li><a href="#">Contacto</a></li>
+					</ul>
+
+					<!-- Right Side Of Navbar -->
+					<ul class="nav navbar-nav navbar-right">
+						<!-- Authentication Links -->
+						<li><a href="{{ url('/login') }}">Entrar</a></li>
+						<li><a href="{{ url('/register') }}">Registrate</a></li>
+						<li><a href=""><span
+								class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></a></li>
+						<li class="dropdown"><a href="#" class="dropdown-toggle"
+							data-toggle="dropdown" role="button" aria-expanded="false">
+								UserName<span class="caret"></span>
+						</a>
+
+							<ul class="dropdown-menu" role="menu">
+								<li><a href="{{ url('/admin') }}">Administración</a></li>
+								<li><a href="{{ url('/home') }}">Mi cuenta</a></li>
+								<li role="separator" class="divider"></li>
+								<li><a href="#"> Cerrar sesión </a>
+
+									<form id="logout-form" action="{{ url('/logout') }}"
+										method="POST" style="display: none;"></form></li>
+							</ul></li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+
+		<div class="page-header">
+			<h1>Registrar nuevo usuario</h1>
+			<div class="panel-body">
+				<ol class="breadcrumb">
+					<li><a href="#">Inicio</a></li>
+					<li class="active">Registrar</li>
+				</ol>
+			</div>
+		</div>
 
 
-    <div class="container">
-        <div class="panel panel-default">
+		<div class="container">
+			<div class="panel panel-default">
 
-            <div class="panel-heading">
-                <h3 class="panel-title">Nuevo usuario</h3>
-            </div>
+				<div class="panel-heading">
+					<h3 class="panel-title">Nuevo usuario</h3>
+				</div>
 
-            <div class="panel-body">
+				<div class="panel-body">
 
-                <form class="form-horizontal">
+					<form class="form-horizontal">
 
-                    <div class="row">
-                        <div class="col-md-6">
+						<div class="row">
+							<div class="col-md-6">
 
-                            <div class="form-group">
-                                <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
-                                <div class="col-sm-10">
-                                    <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
-                                </div>
-                            </div>
+								<div class="form-group">
+									<label for="inputEmail3" class="col-sm-2 control-label">Email</label>
+									<div class="col-sm-10">
+										<input type="email" class="form-control" id="inputEmail3"
+											placeholder="Email" />
+									</div>
+								</div>
 
-                            <div class="form-group">
-                                <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
-                                <div class="col-sm-10">
-                                    <input type="password" class="form-control" id="inputPassword3" placeholder="Password">
-                                </div>
-                            </div>
+								<div class="form-group">
+									<label for="inputPassword3" class="col-sm-2 control-label">Password</label>
+									<div class="col-sm-10">
+										<input type="password" class="form-control"
+											id="inputPassword3" placeholder="Password" />
+									</div>
+								</div>
 
-                            <div class="form-group">
-                                <div class="col-sm-offset-2 col-sm-10">
-                                    <button type="submit" class="btn btn-default">Sign in</button>
-                                </div>
-                            </div>
+								<div class="form-group">
+									<div class="col-sm-offset-2 col-sm-10">
+										<button type="submit" class="btn btn-default">Sign in</button>
+									</div>
+								</div>
 
-                        </div>
-                    </div>
+							</div>
+						</div>
 
-                </form>
+					</form>
 
-            </div>
+				</div>
 
-        </div>
+			</div>
 
+		</div>
 
-    </div>
+	</div>
 
-@endsection
+	<script type="text/javascript" src="/js/jquery.min.js"></script>
+	<script type="text/javascript" src="/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="/slick/slick.min.js"></script>
+</body>
+</html>

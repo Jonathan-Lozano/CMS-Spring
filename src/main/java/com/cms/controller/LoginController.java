@@ -1,6 +1,7 @@
 package com.cms.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,15 +18,18 @@ public class LoginController {
 	}
 	
 	@GetMapping("/login")
-	public String showLoginForm(@RequestParam(name="error", defaultValue="", required=false) String error){
-		return "login";
+	public String showLoginForm(Model model,
+			@RequestParam(name="error", required=false) String error){
+		model.addAttribute("userCredentials", new UserCredential());
+		model.addAttribute("error", error);
+		return "auth/login";
 	}
 	
-	@PostMapping("/loginheck")
+	@PostMapping("/logincheck")
 	public String loginCheck(@ModelAttribute(name="userCredentials") UserCredential userCredential){
 		
 		if(userCredential.getUsername().equals("user") && userCredential.getPassword().equals("user")){
-			return "contacts";
+			return "admin/index";
 		}
 	return "redirect:/login?error";
 	}
